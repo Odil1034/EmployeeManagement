@@ -16,10 +16,6 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @Table(name = "work_types")
 public class WorkType extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(nullable = false)
     private String name; // Размерга кесиш, Тешиш, Овал, Сайкаллаш
 

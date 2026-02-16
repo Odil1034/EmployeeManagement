@@ -5,6 +5,8 @@ import com.example.EmployeeManagement.entity.Position;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
@@ -15,10 +17,9 @@ import java.util.List;
 @Entity
 @SuperBuilder(toBuilder = true)
 @Table(name = "work_categories")
+@SQLDelete(sql = "UPDATE work_categories SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class WorkCategory extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name; // Yog‘ochga ishlov berish, MDFga ishlov berish, Temir mahsulotlari

@@ -5,6 +5,8 @@ import com.example.EmployeeManagement.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,13 +16,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @SuperBuilder(toBuilder = true)
+@Entity
 @Table(name = "employees")
+@SQLDelete(sql = "UPDATE employees SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Employee extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = ("first_name"), nullable = false)
     private String firstName;
@@ -37,6 +38,7 @@ public class Employee extends Auditable {
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String address;
@@ -52,4 +54,8 @@ public class Employee extends Auditable {
     @OneToOne
     @JoinColumn(name = "document_id")
     private Document profileImage;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

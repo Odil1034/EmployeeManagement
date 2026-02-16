@@ -1,10 +1,8 @@
 package com.example.EmployeeManagement.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum DefaultPermission {
     // Report — bu tizimdagi ma’lumotlarni hisobot ko‘rinishida chiqarish.
 
@@ -65,4 +63,8 @@ public enum DefaultPermission {
      FULL_ACCESS("Full system access");
 
     private final String description;
+
+    DefaultPermission(String description) {
+        this.description = description;
+    }
 }

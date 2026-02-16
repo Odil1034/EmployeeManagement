@@ -4,9 +4,7 @@ import com.example.EmployeeManagement.dto.marker.Request;
 import jakarta.validation.constraints.NotNull;
 
 public record PermissionUpdateDTO(
-        @NotNull Long roleId,
-        @NotNull String oldPermissionName,
-        @NotNull String newPermissionName,
+        @NotNull String access,
         String description
 ) implements Request {
 }

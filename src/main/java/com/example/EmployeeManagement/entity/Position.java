@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
@@ -14,13 +16,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @SuperBuilder(toBuilder = true)
+@Entity
 @Table(name = "positions")
+@SQLDelete(sql = "UPDATE positions SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Position extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name; // WELDER, PAINTER, etc

@@ -5,6 +5,8 @@ import com.example.EmployeeManagement.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,13 +16,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @SuperBuilder(toBuilder = true)
+@Entity
 @Table(name = "salary_payments")
+@SQLDelete(sql = "UPDATE salary_payments SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class SalaryPayment extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)

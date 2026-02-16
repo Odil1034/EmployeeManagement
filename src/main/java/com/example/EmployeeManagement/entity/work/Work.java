@@ -7,6 +7,8 @@ import com.example.EmployeeManagement.enums.WorkStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,11 +21,11 @@ import java.time.LocalDate;
 @SuperBuilder(toBuilder = true)
 @Table(name = "works",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "work_date", "title"})})
+
+@SQLDelete(sql = "UPDATE works SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Work extends Auditable {
     // Work — real ishchi tomonidan bajarilgan ish
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)

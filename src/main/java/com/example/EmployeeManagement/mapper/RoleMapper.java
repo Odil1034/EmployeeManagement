@@ -20,7 +20,7 @@ public interface RoleMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void fromUpdate(RoleUpdateDTO dto, @MappingTarget Role entity);
 
-    RoleResponseDTO toDTO(Role permission);
+    RoleResponseDTO toDTO(Role entity);
 
     Role toEntity(RoleResponseDTO dto);
 

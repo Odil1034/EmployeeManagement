@@ -1,6 +1,5 @@
 package com.example.EmployeeManagement.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -10,8 +9,6 @@ import java.util.Set;
 
 import static com.example.EmployeeManagement.enums.DefaultPermission.*;
 
-@Getter
-@AllArgsConstructor
 public enum DefaultRole {
 
     EMPLOYEE("An employee who can manage their own profile, create and track their assigned work, and view personal salary reports. Has limited access to system data related to their responsibilities.",
@@ -93,6 +90,18 @@ public enum DefaultRole {
     private final String description;
     private final Set<DefaultPermission> permissions;
 
+    public Set<DefaultPermission> getPermissions() {
+        return permissions;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    DefaultRole(String description, Set<DefaultPermission> permissions) {
+        this.description = description;
+        this.permissions = permissions;
+    }
 
     public List<SimpleGrantedAuthority> getAuthorities() {
         if (getPermissions() != null) {

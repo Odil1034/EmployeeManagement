@@ -5,22 +5,22 @@ import com.example.EmployeeManagement.entity.Document;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Entity
 @Table(name = "product_variants")
+@SQLDelete(sql = "UPDATE product_variants SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class ProductVariant extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;

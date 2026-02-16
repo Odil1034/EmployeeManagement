@@ -11,8 +11,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PermissionMapper {
 
-    PermissionMapper PERMISSION_MAPPER = Mappers.getMapper(PermissionMapper.class);
-
     Permission fromCreate(PermissionCreateDTO dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -25,11 +25,6 @@ import java.time.LocalTime;
 @Table(name = "attendances")
 @SuperBuilder(toBuilder = true)
 public class Attendance extends Auditable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;

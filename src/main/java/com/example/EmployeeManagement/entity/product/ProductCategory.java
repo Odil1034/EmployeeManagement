@@ -4,20 +4,21 @@ import com.example.EmployeeManagement.entity.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Entity
 @Table(name = "product_categories")
+@SQLDelete(sql = "UPDATE product_categories SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class ProductCategory extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name; // Furniture, Wood, Metal, Paint

@@ -1,7 +1,6 @@
 package com.example.EmployeeManagement.repository;
 
-import com.example.EmployeeManagement.entity.Permission;
-import jakarta.validation.constraints.NotNull;
+import com.example.EmployeeManagement.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,20 +9,21 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-    @Query("SELECT p FROM Permission p WHERE p.access = ?1 AND p.isDeleted = FALSE")
-    Optional<Permission> findByAccess(String access);
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query("SELECT p FROM Permission p WHERE p.id = ?1 AND p.isDeleted = FALSE")
-    Optional<Permission> findActiveById(Long id);
+    @Query("SELECT p FROM Employee p WHERE p.access = ?1 AND p.isDeleted = FALSE")
+    Optional<Employee> findByAccess(String access);
 
-    @Query("SELECT p FROM Permission p WHERE p.isDeleted = FALSE")
-    List<Permission> findAllActive();
+    @Query("SELECT p FROM Employee p WHERE p.id = ?1 AND p.isDeleted = FALSE")
+    Optional<Employee> findActiveById(Long id);
+
+    @Query("SELECT p FROM Employee p WHERE p.isDeleted = FALSE")
+    List<Employee> findAllActive();
 
     @Modifying
-    @Query("UPDATE Permission p SET p.isDeleted = true WHERE p.id = :id")
-    int softDelete(@Param("id") Long id);
+    @Query("UPDATE Employee p SET p.isDeleted = TRUE WHERE p.id = ?1 AND p.isDeleted = FALSE")
+    int softDelete(Long id);
 
     boolean existsByAccess(String access);
 
@@ -37,5 +37,5 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
             JOIN users u ON ur.user_id = u.id
             WHERE u.username = :username
         """, nativeQuery = true)
-    Set<Permission> findPermissionsByUsername(@Param("username") String username);
+    Set<Employee> findEmployeesByUsername(@Param("username") String username);
 }

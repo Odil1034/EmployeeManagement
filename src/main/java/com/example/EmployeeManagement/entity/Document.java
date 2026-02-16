@@ -8,18 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "documents")
 @SuperBuilder(toBuilder = true)
+@Entity
+@Table(name = "documents")
+@SQLDelete(sql = "UPDATE documents SET is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 public class Document extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "file_name", nullable = false)
     private String fileName;  // original file name
@@ -43,3 +44,4 @@ public class Document extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductVariant productVariant;
 }
+
