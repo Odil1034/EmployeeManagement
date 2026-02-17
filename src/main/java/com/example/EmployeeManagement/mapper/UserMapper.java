@@ -1,20 +1,14 @@
 package com.example.EmployeeManagement.mapper;
 
-import com.example.EmployeeManagement.config.CustomUserDetails;
 import com.example.EmployeeManagement.dto.request.UserCreateDTO;
 import com.example.EmployeeManagement.dto.request.UserUpdateDTO;
 import com.example.EmployeeManagement.dto.response.UserResponseDTO;
 import com.example.EmployeeManagement.entity.User;
 import org.mapstruct.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true),
-        uses = {RoleMapper.class, PermissionMapper.class}
-)
+@Mapper(componentModel = "spring", uses = {RoleMapper.class, PermissionMapper.class})
 public interface UserMapper {
-
-    UserMapper USER_MAPPER = Mappers.getMapper(UserMapper.class);
 
     User fromCreate(UserCreateDTO dto);
 
@@ -25,6 +19,14 @@ public interface UserMapper {
 
     User toEntity(UserResponseDTO dto);
 
-    CustomUserDetails toCustomUserDetails(User user);
+
+
+    //
+//    @Mapping(target = "roles", source = "roles")
+//    @Mapping(target = "permissions", source = "permissionIds")
+    // MapStruct uchun default methodlar
+    /*Set<Role> toRoleSet(Set<Long> roleIds);
+    Set<Role> toRoles(Set<String> roleStrs);
+    Set<Permission> toPermissionSet(Set<Long> permissionIds);*/
 
 }

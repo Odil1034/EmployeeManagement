@@ -19,8 +19,8 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "salary_payments")
-@SQLDelete(sql = "UPDATE salary_payments SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE salary_payments SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class SalaryPayment extends Auditable {
 
     @ManyToOne

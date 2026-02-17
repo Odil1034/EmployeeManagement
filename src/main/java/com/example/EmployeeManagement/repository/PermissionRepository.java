@@ -1,7 +1,6 @@
 package com.example.EmployeeManagement.repository;
 
 import com.example.EmployeeManagement.entity.Permission;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,17 +11,17 @@ import java.util.Optional;
 import java.util.Set;
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-    @Query("SELECT p FROM Permission p WHERE p.access = ?1 AND p.isDeleted = FALSE")
+    @Query("SELECT p FROM Permission p WHERE p.access = ?1 AND p.deleted = FALSE")
     Optional<Permission> findByAccess(String access);
 
-    @Query("SELECT p FROM Permission p WHERE p.id = ?1 AND p.isDeleted = FALSE")
+    @Query("SELECT p FROM Permission p WHERE p.id = ?1 AND p.deleted = FALSE")
     Optional<Permission> findActiveById(Long id);
 
-    @Query("SELECT p FROM Permission p WHERE p.isDeleted = FALSE")
+    @Query("SELECT p FROM Permission p WHERE p.deleted = FALSE")
     List<Permission> findAllActive();
 
     @Modifying
-    @Query("UPDATE Permission p SET p.isDeleted = true WHERE p.id = :id")
+    @Query("UPDATE Permission p SET p.deleted = true WHERE p.id = :id")
     int softDelete(@Param("id") Long id);
 
     boolean existsByAccess(String access);
@@ -33,8 +32,8 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
             SELECT p.*
             FROM permissions p
             JOIN role_permission rp ON p.id = rp.permission_id
-            JOIN user_role ur ON rp.role_id = ur.role_id
-            JOIN users u ON ur.user_id = u.id
+            JOIN user_roles ur ON rp.role_id = ur.role_id
+            JOIN all_users u ON ur.user_id = u.id
             WHERE u.username = :username
         """, nativeQuery = true)
     Set<Permission> findPermissionsByUsername(@Param("username") String username);

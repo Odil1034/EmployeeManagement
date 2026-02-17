@@ -1,6 +1,5 @@
 package com.example.EmployeeManagement.exception;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serial;
@@ -10,7 +9,6 @@ import java.text.MessageFormat;
  * @author Baxriddinov Odiljon
  * @since 11/February/2026  15:19
  **/
-@Getter
 public abstract class BaseException extends RuntimeException {
 
     @Serial
@@ -23,5 +21,13 @@ public abstract class BaseException extends RuntimeException {
         super(MessageFormat.format(message, args));
         this.httpStatus = httpStatus;
         this.code = code;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

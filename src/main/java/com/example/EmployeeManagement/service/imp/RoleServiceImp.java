@@ -1,6 +1,5 @@
 package com.example.EmployeeManagement.service.imp;
 
-import com.example.EmployeeManagement.dto.ErrorResponse;
 import com.example.EmployeeManagement.dto.Response;
 import com.example.EmployeeManagement.dto.request.RoleCreateDTO;
 import com.example.EmployeeManagement.dto.response.RoleResponseDTO;
@@ -8,16 +7,17 @@ import com.example.EmployeeManagement.dto.response.RoleUpdateDTO;
 import com.example.EmployeeManagement.entity.Role;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.mapper.RoleMapper;
-import com.example.EmployeeManagement.repository.PermissionRepository;
 import com.example.EmployeeManagement.repository.RoleRepository;
 import com.example.EmployeeManagement.service.RoleService;
-import com.example.EmployeeManagement.utils.ErrorCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,7 +25,7 @@ import java.util.List;
 public class RoleServiceImp implements RoleService {
 
     private final RoleRepository repository;
-    private final RoleMapper mapper = RoleMapper.ROLE_MAPPER;
+    private final RoleMapper mapper;
 
     @Override
     public Role findByName(String roleName) {

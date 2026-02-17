@@ -17,11 +17,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class PermissionServiceImp implements PermissionService {
 
     private final PermissionRepository repository;
     private final PermissionMapper mapper;
+
+    public PermissionServiceImp(PermissionRepository repository, PermissionMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public Permission findByName(String name) {
@@ -67,7 +71,7 @@ public class PermissionServiceImp implements PermissionService {
     public Response<Boolean> delete(Long id) {
         Permission permission = find(id);
 
-        int updated = repository.softDelete(permission.getId());
+        int updated = repository.softDelete(id);
 
         return Response.ok(true);
     }

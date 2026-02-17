@@ -36,16 +36,16 @@ public interface UserRepository extends JpaRepository<User, Long>, Repository {
             """, nativeQuery = true)
     List<Object[]> findRolesWithPermissions(@Param("username") String username);
 
-    @Query("SELECT u FROM User u WHERE u.id = ?1 AND u.isDeleted = FALSE")
+    @Query("SELECT u FROM User u WHERE u.id = ?1 AND u.deleted = FALSE")
     Optional<User> findByIdCustom(@NotNull Long id);
 
-    @Query("SELECT u FROM User u WHERE u.isDeleted = FALSE")
+    @Query("SELECT u FROM User u WHERE u.deleted = FALSE")
     List<User> findAllCustom();
 
     @Modifying
-    @Query("UPDATE User u SET u.isDeleted = TRUE WHERE u.id = ?1")
+    @Query("UPDATE User u SET u.deleted = TRUE WHERE u.id = ?1")
     void softDelete(@NotNull Long id);
 
-    @Query("SELECT u FROM User u WHERE u.username = ?1 AND u.isDeleted = FALSE")
+    @Query("SELECT u FROM User u WHERE u.username = ?1 AND u.deleted = FALSE")
     Optional<User> findByUsername(@NotNull String username);
 }

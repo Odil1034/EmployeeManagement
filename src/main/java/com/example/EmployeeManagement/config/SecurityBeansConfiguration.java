@@ -1,5 +1,6 @@
 package com.example.EmployeeManagement.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import tools.jackson.databind.ObjectMapper;
+
 import com.example.EmployeeManagement.dto.ErrorResponse;
 
 /**
@@ -50,7 +51,6 @@ public class SecurityBeansConfiguration {
         response.setContentType("/application/json");
         try (ServletOutputStream outputStream = response.getOutputStream()) {
             objectMapper.writeValue(outputStream, errorResponse);
-
         }
     }
 }

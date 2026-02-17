@@ -1,7 +1,5 @@
 package com.example.EmployeeManagement.entity.product;
 
-import com.example.EmployeeManagement.entity.Auditable;
-import com.example.EmployeeManagement.entity.BaseEntity;
 import com.example.EmployeeManagement.enums.SizeUnit;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Table(name = "sizes")
-public class Size extends BaseEntity {
+public class Size {
 
     @Column(nullable = false, precision = 8, scale = 2)
     private BigDecimal height;

@@ -27,7 +27,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Master Azimut Application")
+                        .title("Employee Management")
                         .description("This API provides endpoints for managing employee's attendance, calculating employee salaries and employee management")
                         .version("1.0")
                         .contact(new Contact()

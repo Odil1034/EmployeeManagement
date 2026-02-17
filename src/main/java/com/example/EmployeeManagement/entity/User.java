@@ -9,7 +9,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,8 +19,8 @@ import java.util.Set;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "all_users")
-@SQLDelete(sql = "UPDATE all_users SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE all_users SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class User extends Auditable {
 
     @NotNull(message = "username is required")

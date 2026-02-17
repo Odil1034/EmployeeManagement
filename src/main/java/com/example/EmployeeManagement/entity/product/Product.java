@@ -17,8 +17,8 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "products")
-@SQLDelete(sql = "UPDATE products SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE products SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class Product extends Auditable {
 
     @Column(nullable = false)

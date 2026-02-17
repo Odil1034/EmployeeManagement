@@ -22,8 +22,8 @@ import java.time.LocalDate;
 @Table(name = "works",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "work_date", "title"})})
 
-@SQLDelete(sql = "UPDATE works SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE works SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class Work extends Auditable {
     // Work — real ishchi tomonidan bajarilgan ish
 

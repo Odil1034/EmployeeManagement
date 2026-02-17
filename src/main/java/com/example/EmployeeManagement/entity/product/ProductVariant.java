@@ -18,8 +18,8 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "product_variants")
-@SQLDelete(sql = "UPDATE product_variants SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE product_variants SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class ProductVariant extends Auditable {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

@@ -1,7 +1,5 @@
 package com.example.EmployeeManagement.config;
 
-import com.example.EmployeeManagement.entity.Permission;
-import com.example.EmployeeManagement.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +12,10 @@ public record CustomUserDetails(Long id, String username, String password, boole
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public Long getId(){
+        return id();
     }
 
     @Override

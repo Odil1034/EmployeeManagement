@@ -17,8 +17,8 @@ import java.util.List;
 @Entity
 @SuperBuilder(toBuilder = true)
 @Table(name = "work_categories")
-@SQLDelete(sql = "UPDATE work_categories SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE work_categories SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class WorkCategory extends Auditable {
 
     @Column(nullable = false, unique = true)

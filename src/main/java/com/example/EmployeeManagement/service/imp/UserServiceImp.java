@@ -29,7 +29,7 @@ public class UserServiceImp implements UserService {
     private final SessionUser sessionUser;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
-    UserMapper mapper = UserMapper.USER_MAPPER;
+    private final UserMapper mapper;
 
     @Override
     public Response<UserResponseDTO> profile() {

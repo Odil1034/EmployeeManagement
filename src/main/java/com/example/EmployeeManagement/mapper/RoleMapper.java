@@ -6,16 +6,17 @@ import com.example.EmployeeManagement.dto.response.RoleUpdateDTO;
 import com.example.EmployeeManagement.entity.Role;
 import org.mapstruct.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring",
-        uses = {PermissionMapper.class})
+        uses = {UserMapperHelper.class})
 
 public interface RoleMapper {
 
-    RoleMapper ROLE_MAPPER = Mappers.getMapper(RoleMapper.class);
-
-    Role fromCreate(RoleCreateDTO dto);
+    default Role fromCreate(RoleCreateDTO dto) {
+        return new Role(dto.name(), dto.description(), null, null);
+    }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void fromUpdate(RoleUpdateDTO dto, @MappingTarget Role entity);
@@ -23,5 +24,9 @@ public interface RoleMapper {
     RoleResponseDTO toDTO(Role entity);
 
     Role toEntity(RoleResponseDTO dto);
+/*
+
+    // Set<Long> roleIds -> Set<Role>
+    Set<Role> mapRoles(Set<Long> roleIds);*/
 
 }

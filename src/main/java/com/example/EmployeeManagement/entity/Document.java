@@ -18,8 +18,8 @@ import org.hibernate.annotations.SQLRestriction;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "documents")
-@SQLDelete(sql = "UPDATE documents SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE documents SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class Document extends Auditable {
 
     @Column(name = "file_name", nullable = false)
