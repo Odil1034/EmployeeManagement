@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+/.mvn/
+/.gitattributes
+mvnw.cmd
+.target/
+.out/
+.bin/
+Thumbs.db
+.DS_Store
+
+!/src/main/resources/application.properties
