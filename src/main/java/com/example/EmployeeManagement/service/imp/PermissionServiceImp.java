@@ -28,9 +28,9 @@ public class PermissionServiceImp implements PermissionService {
     }
 
     @Override
-    public Permission findByName(String name) {
-        return repository.findByAccess(name)
-                .orElseThrow(() -> new ResourceNotFoundException("Permission not found with name {}", name));
+    public Permission findByAccess(String access) {
+        return repository.findByAccess(access)
+                .orElseThrow(() -> new ResourceNotFoundException("Permission not found with access {0}", access));
     }
 
     @Override

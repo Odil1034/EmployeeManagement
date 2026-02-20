@@ -1,11 +1,7 @@
 package com.example.EmployeeManagement.dto.response;
 
 import com.example.EmployeeManagement.dto.marker.Response;
-import com.example.EmployeeManagement.entity.Permission;
 import jakarta.validation.constraints.NotNull;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 /**
  * @author Baxriddinov Odiljon
@@ -13,15 +9,12 @@ import java.util.Set;
  */
 public record UserResponseDTO(
         @NotNull Long id,
-        String firstName,
-        String lastName,
         @NotNull String username,
         String phoneNumber,
         String email,
-        LocalDate dateOfBirth,
 //        @NotNull Set<String> roles,
 //        @NotNull Set<Long> permissionIds,
         @NotNull boolean isAccountNonLocked
-        ) implements Response {
+) implements Response {
 
 }

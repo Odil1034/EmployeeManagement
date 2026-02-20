@@ -1,14 +1,10 @@
 package com.example.EmployeeManagement.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import com.example.EmployeeManagement.enums.AttendanceStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -16,7 +12,6 @@ import java.time.LocalTime;
  * @author Baxriddinov Odiljon
  * @since 07/02/2026 20:27
  */
-
 @Entity
 @Getter
 @Setter
@@ -25,23 +20,27 @@ import java.time.LocalTime;
 @Table(name = "attendances")
 @SuperBuilder(toBuilder = true)
 public class Attendance extends Auditable {
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
 
-    private LocalDate date;
+    @OneToOne
+    @JoinColumn(name = "shift_assignment_id", nullable = false, unique = true)
+    private ShiftAssignment shiftAssignment;
 
-    private LocalTime checkInTime;
-
-    private LocalTime checkOutTime;
+    @Column(name = "check_in")
+    private LocalTime checkIn;
+    @Column(name = "check_out")
+    private LocalTime checkOut;
 
     @Enumerated(EnumType.STRING)
     private AttendanceStatus status;
 
+    @Column(name = "approved_by")
     private Long approvedBy;
 
+    @Column(name = "approved_at")
     private LocalDateTime approvedAt;
 
-    private boolean isApproved;
+    @Builder.Default
+    @Column(name = "is_approved")
+    private boolean isApproved = false;
 
 }

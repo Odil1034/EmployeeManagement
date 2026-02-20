@@ -70,7 +70,7 @@ public class UserServiceImp implements UserService {
         return Response.ok(mapper.toDTO(find(id)));
     }
 
-    private User find(Long id) {
+    public User find(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with id: {0} not found", id));
     }
@@ -83,13 +83,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Response<UserResponseDTO> updatePassword(PasswordUpdateDTO dto) {
+    public Response<String> updatePassword(PasswordUpdateDTO dto) {
         User user = repository.findByIdCustom(sessionUser.getID())
                 .orElseThrow(() -> new UserNotFoundException("User not found with session id: {0}", sessionUser.getID()));
         if (passwordEncoder.matches(dto.oldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(dto.newPassword()));
             final var newUser = repository.save(user);
-            return Response.ok(mapper.toDTO(newUser));
+            return Response.ok("Password successfully updated");
         }
         return Response.error(HttpStatus.BAD_REQUEST,
                 ErrorResponse.of("400", "Password does not match", ""));

@@ -17,6 +17,8 @@ public interface UserService extends GenericCrudService
 
     Response<UserResponseDTO> profile();
 
-    Response<UserResponseDTO> updatePassword(PasswordUpdateDTO dto);
+    Response<String> updatePassword(PasswordUpdateDTO dto);
+
+    User find(Long id);
 
 }

@@ -1,8 +1,9 @@
 package com.example.EmployeeManagement.entity;
 
-import com.example.EmployeeManagement.enums.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
@@ -24,26 +25,21 @@ import java.util.Set;
 public class User extends Auditable {
 
     @NotNull(message = "username is required")
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
 
     @NotNull(message = "password is required")
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "phone_number", unique = true, nullable = false)
-    private String phoneNumber;
-
+    @Email(message = "Email should be valid")
+    @NotNull(message = "email is required")
+    @Column(nullable = false)
     private String email;
 
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    @Column(name = "phone_number", unique = true, nullable = false)
+    @Pattern(regexp = "^\\+998\\d{9}$", message = "Phone number must be +998XXXXXXXXX")
+    private String phoneNumber;
 
     @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)

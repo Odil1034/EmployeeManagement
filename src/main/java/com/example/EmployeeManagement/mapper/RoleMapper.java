@@ -24,9 +24,5 @@ public interface RoleMapper {
     RoleResponseDTO toDTO(Role entity);
 
     Role toEntity(RoleResponseDTO dto);
-/*
-
-    // Set<Long> roleIds -> Set<Role>
-    Set<Role> mapRoles(Set<Long> roleIds);*/
 
 }

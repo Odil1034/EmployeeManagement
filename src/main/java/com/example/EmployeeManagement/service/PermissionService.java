@@ -5,9 +5,11 @@ import com.example.EmployeeManagement.dto.response.PermissionResponseDTO;
 import com.example.EmployeeManagement.dto.request.PermissionUpdateDTO;
 import com.example.EmployeeManagement.entity.Permission;
 
+import java.util.Optional;
+
 public interface PermissionService extends GenericCrudService
         <Long, Permission, PermissionResponseDTO, PermissionCreateDTO, PermissionUpdateDTO> {
 
-    Permission findByName(String roleName);
+    Permission findByAccess(String access);
 
 }
