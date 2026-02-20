@@ -1,6 +1,6 @@
 package com.example.EmployeeManagement.enums;
 
-public enum DepartmentStatus {
+public enum EmployeeStatus {
     ACTIVE,
     INACTIVE,
     DELETED

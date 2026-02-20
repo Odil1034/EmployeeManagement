@@ -27,22 +27,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Response<EmployeeResponseDTO>> getById(@PathVariable Long id){
+    public ResponseEntity<Response<EmployeeResponseDTO>> getById(@PathVariable Long id) {
         return ResponseEntity.ok(employeeService.findById(id));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response<Boolean>> deleteById(@PathVariable Long id){
+    public ResponseEntity<Response<EmployeeResponseDTO>> deleteById(@PathVariable Long id) {
         return ResponseEntity.ok(employeeService.delete(id));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response<EmployeeResponseDTO>> updateById(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO dto){
+    public ResponseEntity<Response<EmployeeResponseDTO>> updateById(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO dto) {
         return ResponseEntity.ok(employeeService.update(id, dto));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Response<List<EmployeeResponseDTO>>> getAll(){
+    public ResponseEntity<Response<List<EmployeeResponseDTO>>> getAll() {
         return ResponseEntity.ok(employeeService.findAll());
     }
 

@@ -34,9 +34,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         String token = authorization.substring(Constants.AUTH_TYPE.length());
-        System.out.println(token);
+        System.out.println("token " + token);
         String username = jwtTokenUtils.extractUsername(token);
-        System.out.println(username);
+        System.out.println("username: " + username);
 
         if (username != null && !username.isBlank() && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);

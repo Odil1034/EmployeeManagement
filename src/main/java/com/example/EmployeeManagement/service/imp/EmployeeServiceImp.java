@@ -14,6 +14,7 @@ import com.example.EmployeeManagement.repository.EmployeeRepository;
 import com.example.EmployeeManagement.service.DepartmentService;
 import com.example.EmployeeManagement.service.EmployeeService;
 import com.example.EmployeeManagement.service.RoleService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
@@ -33,27 +34,31 @@ public class EmployeeServiceImp implements EmployeeService {
     private final RoleService roleService;
 
     @Override
+    @Transactional
     public Response<EmployeeResponseDTO> create(EmployeeCreateDTO dto) {
-        boolean b = repository.existsByPhoneNumber(dto.phoneNumber());
-        boolean b1 = repository.existsByEmail(dto.email());
-        if (b) {
-            throw new RuntimeException("This phone number already exist");
-        } else if (b1) {
-            throw new RuntimeException("This email already exist");
+        if (repository.existsByPhoneNumber(dto.phoneNumber())) {
+            throw new RuntimeException("This phone number already exists");
         }
-        Department department = departmentMapper.toEntity(departmentService.findById(dto.departmentId()).getData());
-        Employee employee = mapper.fromCreate(dto);
+        if (repository.existsByEmail(dto.email())) {
+            throw new RuntimeException("This email already exists");
+        }
+        Department department = departmentService.find(dto.departmentId());
 
-        return Response.ok(mapper.toDTO(employee));
+        Employee employee = mapper.fromCreate(dto);
+        employee.setDepartment(department);
+
+        Employee savedEmployee = repository.save(employee);
+
+        return Response.ok(mapper.toDTO(savedEmployee));
     }
 
     @Override
     public Response<EmployeeResponseDTO> update(Long id, EmployeeUpdateDTO dto) {
         Employee employee = find(id);
-        if (!roleService.hasRole(sessionUser.getID(), "ADMIN")
+        /*if (!roleService.hasRole(sessionUser.getID(), "ADMIN")
                 && !employee.getId().equals(sessionUser.getID())) {
             throw new AccessDeniedException("You cannot edit this employee");
-        }
+        }*/
 
         mapper.fromUpdate(dto, employee);
         Employee save = repository.save(employee);
@@ -67,12 +72,15 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public Response<Boolean> delete(@NotNull Long id) {
-        boolean b = repository.existsById(id);
+    @Transactional
+    public Response<EmployeeResponseDTO> delete(@NotNull Long id) {
+        Employee employee = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found or already deleted with id: " + id));
 
-        repository.softDelete(id);
+        employee.setDeleted(true);
+        Employee save = repository.save(employee);
 
-        return Response.ok(true);
+        return Response.ok(mapper.toDTO(save));
     }
 
     @Override

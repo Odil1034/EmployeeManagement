@@ -7,7 +7,9 @@ import com.example.EmployeeManagement.dto.request.UserUpdateDTO;
 import com.example.EmployeeManagement.dto.request.UserCreateDTO;
 import com.example.EmployeeManagement.dto.response.UserResponseDTO;
 import com.example.EmployeeManagement.dto.Response;
+import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.entity.User;
+import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.exception.UserNotFoundException;
 import com.example.EmployeeManagement.mapper.UserMapper;
 import com.example.EmployeeManagement.repository.UserRepository;
@@ -60,9 +62,14 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Response<Boolean> delete(Long id) {
-        repository.softDelete(id);
-        return Response.ok(true);
+    public Response<UserResponseDTO> delete(Long id) {
+        User user = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found or already deleted with id: " + id));
+
+        user.setDeleted(true);
+        User save = repository.save(user);
+
+        return Response.ok(mapper.toDTO(save));
     }
 
     @Override

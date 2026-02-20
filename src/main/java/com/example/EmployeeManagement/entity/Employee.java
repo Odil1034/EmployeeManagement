@@ -2,6 +2,7 @@ package com.example.EmployeeManagement.entity;
 
 import com.example.EmployeeManagement.entity.work.Work;
 import com.example.EmployeeManagement.enums.EmployeeRole;
+import com.example.EmployeeManagement.enums.EmployeeStatus;
 import com.example.EmployeeManagement.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +55,11 @@ public class Employee extends Auditable {
     private Position position; // bitta employee → bitta position
 
     @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private EmployeeStatus status = EmployeeStatus.ACTIVE;
+
+    @Builder.Default
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Work> works = new ArrayList<>();
 
@@ -64,6 +69,7 @@ public class Employee extends Auditable {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
+    @Column(name = "employee_role", nullable = false)
     private EmployeeRole employeeRole = EmployeeRole.EMPLOYEE;
 
     @OneToOne

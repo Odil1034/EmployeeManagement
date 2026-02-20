@@ -50,4 +50,5 @@ public interface RoleRepository extends JpaRepository<Role, Long>, Repository {
 
     boolean existsByName(@NotNull String name);
 
+    Optional<Role> findByIdAndDeletedFalse(Long id);
 }

@@ -37,4 +37,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
             WHERE u.username = :username
         """, nativeQuery = true)
     Set<Permission> findPermissionsByUsername(@Param("username") String username);
+
+    Optional<Permission> findByIdAndDeletedFalse(Long id);
 }

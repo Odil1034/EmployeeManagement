@@ -3,7 +3,9 @@ package com.example.EmployeeManagement.dto.request;
 import com.example.EmployeeManagement.dto.marker.Request;
 import com.example.EmployeeManagement.enums.EmployeeRole;
 import com.example.EmployeeManagement.enums.Gender;
+import com.example.EmployeeManagement.validation.LocalDateDeserializer;
 import com.example.EmployeeManagement.validation.ValidAge;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ public record EmployeeCreateDTO(
         @Email(message = "Invalid email format")
         @NotBlank(message = "Email is required")
         String email,
+        @JsonDeserialize(using = LocalDateDeserializer.class)
         @NotNull(message = "Date of birth is required")
         @ValidAge(min = 18, max = 65)
         LocalDate dateOfBirth,
@@ -29,7 +32,7 @@ public record EmployeeCreateDTO(
         String address,
         @NotNull(message = "EmployeeRole is required")
         EmployeeRole employeeRole,
-        @NotNull(message = "Department is required")
+        @NotNull(message = "Department id is required")
         Long departmentId
 ) implements Request {
 }

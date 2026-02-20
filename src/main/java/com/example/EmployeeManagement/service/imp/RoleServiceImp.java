@@ -5,6 +5,7 @@ import com.example.EmployeeManagement.dto.request.RoleCreateDTO;
 import com.example.EmployeeManagement.dto.response.RoleResponseDTO;
 import com.example.EmployeeManagement.dto.response.RoleUpdateDTO;
 import com.example.EmployeeManagement.dto.response.UserDTO;
+import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.entity.Role;
 import com.example.EmployeeManagement.entity.User;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
@@ -129,18 +130,14 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     @Transactional
-    public Response<Boolean> delete(Long id) {
+    public Response<RoleResponseDTO> delete(Long id) {
+        Role role = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found or already deleted with id: " + id));
 
-        Role role = find(id);
+        role.setDeleted(true);
+        Role save = repository.save(role);
 
-        // Agar production darajada bo‘lsa:
-        // if (!role.getUsers().isEmpty()) {
-        //     throw new IllegalStateException("Role is assigned to users and cannot be deleted");
-        // }
-
-        repository.softDelete(id);
-
-        return Response.ok(true);
+        return Response.ok(mapper.toDTO(save));
     }
 
     // ================= FIND BY ID =================

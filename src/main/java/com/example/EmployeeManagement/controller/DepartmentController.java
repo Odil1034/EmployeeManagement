@@ -45,14 +45,9 @@ public class DepartmentController {
     @Operation(summary = "Delete department by ID",
             description = "Deletes the department with the given ID")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response<String>> deleteById(
-            @PathVariable @Parameter(description = "ID of the department to delete", required = true) Long id){
-        Boolean isDeleted = departmentService.delete(id).getData();
-        if (isDeleted) {
-            return ResponseEntity.ok(Response.ok(HttpStatus.ACCEPTED, "Department deleted successfully 🤩🤩🤩"));
-        } else {
-            return ResponseEntity.ok(Response.ok(HttpStatus.CONFLICT, "Something is wrong"));
-        }
+    public ResponseEntity<Response<DepartmentResponseDTO>> deleteById(
+            @PathVariable @Parameter(description = "ID of the department to delete", required = true) Long id) {
+        return ResponseEntity.ok(departmentService.delete(id));
     }
 
     @Operation(summary = "Update department by ID",
@@ -60,7 +55,7 @@ public class DepartmentController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Response<DepartmentResponseDTO>> updateById(
             @PathVariable @Parameter(description = "ID of the department to update", required = true) Long id,
-            @RequestBody @Parameter(description = "Updated department data", required = true) DepartmentUpdateDTO dto){
+            @RequestBody @Parameter(description = "Updated department data", required = true) DepartmentUpdateDTO dto) {
         return ResponseEntity.ok(departmentService.update(id, dto));
     }
 
@@ -69,7 +64,7 @@ public class DepartmentController {
     @PatchMapping("/update/status/{id}")
     public ResponseEntity<Response<Boolean>> updateStatus(
             @PathVariable @Parameter(description = "ID of the department to update status", required = true) Long id,
-            @RequestBody @Parameter(description = "New department status", required = true) DepartmentStatus status){
+            @RequestBody @Parameter(description = "New department status", required = true) DepartmentStatus status) {
         return ResponseEntity.ok(departmentService.changeDepartmentStatus(id, status));
     }
 

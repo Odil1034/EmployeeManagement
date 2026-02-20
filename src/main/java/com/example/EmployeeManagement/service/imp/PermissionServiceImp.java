@@ -4,6 +4,7 @@ import com.example.EmployeeManagement.dto.Response;
 import com.example.EmployeeManagement.dto.request.PermissionCreateDTO;
 import com.example.EmployeeManagement.dto.response.PermissionResponseDTO;
 import com.example.EmployeeManagement.dto.request.PermissionUpdateDTO;
+import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.entity.Permission;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.mapper.PermissionMapper;
@@ -68,12 +69,14 @@ public class PermissionServiceImp implements PermissionService {
 
     @Override
     @Transactional
-    public Response<Boolean> delete(Long id) {
-        Permission permission = find(id);
+    public Response<PermissionResponseDTO> delete(Long id) {
+        Permission permission = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Permission not found or already deleted with id: " + id));
 
-        int updated = repository.softDelete(id);
+        permission.setDeleted(true);
+        Permission save = repository.save(permission);
 
-        return Response.ok(true);
+        return Response.ok(mapper.toDTO(save));
     }
 
     @Override

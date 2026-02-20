@@ -48,4 +48,6 @@ public interface UserRepository extends JpaRepository<User, Long>, Repository {
 
     @Query("SELECT u FROM User u WHERE u.username = ?1 AND u.deleted = FALSE")
     Optional<User> findByUsername(@NotNull String username);
+
+    Optional<User> findByIdAndDeletedFalse(Long id);
 }

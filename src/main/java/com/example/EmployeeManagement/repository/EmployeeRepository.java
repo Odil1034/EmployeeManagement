@@ -1,6 +1,5 @@
 package com.example.EmployeeManagement.repository;
 
-import com.example.EmployeeManagement.dto.request.EmployeeCreateDTO;
 import com.example.EmployeeManagement.entity.Employee;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,11 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     boolean existsByPhoneNumber(String phoneNumber);
@@ -20,10 +16,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     boolean existsByEmail(@Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$") @NotBlank String email);
 
     @Modifying
-    @Query("UPDATE Employee p SET p.deleted = TRUE WHERE p.id = ?1 AND p.deleted = FALSE")
+    @Query("UPDATE Employee p SET p.deleted = TRUE WHERE p.id = ?1")
     int softDelete(Long id);
 
-    boolean existsById(@NotNull Long id);
+    Optional<Employee> findByIdAndDeletedFalse(@NotNull Long id);
 
     /*@Query("SELECT p FROM Employee p WHERE p.access = ?1 AND p.deleted = FALSE")
     Optional<Employee> findByFirstName(String firstName);

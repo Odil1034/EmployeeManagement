@@ -10,8 +10,10 @@ import com.example.EmployeeManagement.enums.DepartmentStatus;
 public interface DepartmentService extends GenericCrudService
         <Long, Department, DepartmentResponseDTO, DepartmentCreateDTO, DepartmentUpdateDTO> {
 
-    Department findByName(String name);
+    Response<DepartmentResponseDTO> findByName(String name);
 
     Response<Boolean> changeDepartmentStatus(Long id, DepartmentStatus departmentStatus);
+
+    Department find(Long id);
 
 }

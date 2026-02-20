@@ -27,4 +27,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query(value = "UPDATE departments SET status = :status WHERE id = :id", nativeQuery = true)
     int updateStatus(@Param("id") Long id,
                      @Param("status") String status);
+
+    Optional<Department> findByIdAndDeletedFalse(Long id);
 }

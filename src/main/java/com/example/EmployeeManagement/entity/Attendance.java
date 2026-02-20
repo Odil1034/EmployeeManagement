@@ -27,6 +27,7 @@ public class Attendance extends Auditable {
 
     @Column(name = "check_in")
     private LocalTime checkIn;
+
     @Column(name = "check_out")
     private LocalTime checkOut;
 

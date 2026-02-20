@@ -4,6 +4,7 @@ import com.example.EmployeeManagement.dto.marker.Response;
 import jakarta.validation.constraints.NotNull;
 
 public record RoleResponseDTO(
+        Long id,
         @NotNull String name
 ) implements Response {
 

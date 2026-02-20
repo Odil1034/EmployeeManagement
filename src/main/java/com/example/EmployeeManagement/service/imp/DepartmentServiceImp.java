@@ -5,6 +5,7 @@ import com.example.EmployeeManagement.dto.request.DepartmentCreateDTO;
 import com.example.EmployeeManagement.dto.request.DepartmentUpdateDTO;
 import com.example.EmployeeManagement.dto.response.DepartmentResponseDTO;
 import com.example.EmployeeManagement.entity.Department;
+import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.enums.DepartmentStatus;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.mapper.DepartmentMapper;
@@ -24,9 +25,10 @@ public class DepartmentServiceImp implements DepartmentService {
     private final DepartmentMapper mapper;
 
     @Override
-    public Department findByName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(()-> new ResourceNotFoundException("Department not found with name: {0}", name));
+    public Response<DepartmentResponseDTO> findByName(String name) {
+        Department department = repository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with name: {0}", name));
+        return Response.ok(mapper.toDTO(department));
     }
 
     @Transactional
@@ -58,15 +60,18 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     @Transactional
-    public Response<Boolean> delete(Long id) {
-        Department department = find(id);
+    public Response<DepartmentResponseDTO> delete(Long id) {
+        Department department = repository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found or already deleted with id: " + id));
 
-        int updated = repository.softDelete(id);
+        department.setDeleted(true);
+        Department save = repository.save(department);
 
-        return Response.ok(true);
+        return Response.ok(mapper.toDTO(save));
     }
 
-    private Department find(Long id) {
+    @Override
+    public Department find(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: {0}", id));
     }
