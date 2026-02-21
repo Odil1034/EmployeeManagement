@@ -10,6 +10,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,6 +40,6 @@ public class ShiftAssignment extends Auditable {
     @Column(name = "work_date")
     private LocalDate workDate;
 
-    @OneToOne(mappedBy = "shiftAssignment", cascade = CascadeType.ALL)
-    private Attendance attendance;
+    @OneToMany(mappedBy = "shiftAssignment", cascade = CascadeType.ALL)
+    private List<Attendance> attendances;
 }

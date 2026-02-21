@@ -80,7 +80,10 @@ public class Employee extends Auditable {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Attendance> attendances;
+
     @Builder.Default
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<ShiftAssignment> shiftAssignments = new HashSet<>();
+    private Set<ShiftAssignment> assignments = new HashSet<>();
 }

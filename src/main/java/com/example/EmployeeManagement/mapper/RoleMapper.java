@@ -7,11 +7,8 @@ import com.example.EmployeeManagement.entity.Role;
 import org.mapstruct.*;
 import org.mapstruct.Mapper;
 
-import java.util.Set;
-
 @Mapper(componentModel = "spring",
         uses = {UserMapperHelper.class})
-
 public interface RoleMapper {
 
     default Role fromCreate(RoleCreateDTO dto) {

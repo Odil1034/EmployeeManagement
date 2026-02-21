@@ -30,17 +30,12 @@ public interface RoleRepository extends JpaRepository<Role, Long>, Repository {
     @Query("SELECT u FROM Role u WHERE u.id = ?1 AND u.deleted = FALSE")
     Optional<Role> findByIdCustom(@NotNull Long id);
 
-    @Query("SELECT u FROM Role u WHERE u.deleted = FALSE")
-    Set<Role> findAllCustom();
-
     @Query("SELECT r FROM Role r JOIN FETCH r.permissions WHERE r.name = :name")
     Optional<Role> findRoleWithPermissionsByName(@Param("name") String name);
 
     @Modifying
     @Query("UPDATE Role u SET u.deleted = TRUE WHERE u.id = ?1")
     void softDelete(@NotNull Long id);
-
-    Optional<Role> findRoleWithPermissionsById(Long id);
 
     @Query("""
             SELECT DISTINCT r FROM Role r

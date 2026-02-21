@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import com.example.EmployeeManagement.enums.AttendanceStatus;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -21,8 +22,12 @@ import java.time.LocalTime;
 @SuperBuilder(toBuilder = true)
 public class Attendance extends Auditable {
 
-    @OneToOne
-    @JoinColumn(name = "shift_assignment_id", nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shift_assignment_id", nullable = false)
     private ShiftAssignment shiftAssignment;
 
     @Column(name = "check_in")
@@ -36,6 +41,9 @@ public class Attendance extends Auditable {
 
     @Column(name = "approved_by")
     private Long approvedBy;
+
+    @Column(nullable = false)
+    private LocalDate date;
 
     @Column(name = "approved_at")
     private LocalDateTime approvedAt;
