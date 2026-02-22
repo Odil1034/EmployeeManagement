@@ -79,4 +79,60 @@ public class OpenApiConfig {
                 .pathsToMatch("/api/v1/user/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi attendanceOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("attendances")
+                .pathsToMatch("/api/v1/attendance/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi departmentOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("departments")
+                .pathsToMatch("/api/v1/department/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi employeeOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("employees")
+                .pathsToMatch("/api/v1/employee/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi roleOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("role")
+                .pathsToMatch("/api/v1/role/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi permissionOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("permission")
+                .pathsToMatch("/api/v1/permission/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi shiftOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("shift")
+                .pathsToMatch("/api/v1/shift/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi shiftAssignmentOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("shift-assignments")
+                .pathsToMatch("/api/v1/shift-assignments/**")
+                .build();
+    }
 }

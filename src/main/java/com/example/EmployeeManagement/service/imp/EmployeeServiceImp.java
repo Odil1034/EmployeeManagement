@@ -17,7 +17,6 @@ import com.example.EmployeeManagement.service.RoleService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,7 +65,8 @@ public class EmployeeServiceImp implements EmployeeService {
 
     }
 
-    private Employee find(Long id) {
+    @Override
+    public Employee find(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id = {0}", id));
     }

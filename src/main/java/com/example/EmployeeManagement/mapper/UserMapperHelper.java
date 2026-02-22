@@ -1,10 +1,10 @@
 package com.example.EmployeeManagement.mapper;
 
-import com.example.EmployeeManagement.entity.Permission;
-import com.example.EmployeeManagement.entity.Role;
+import com.example.EmployeeManagement.entity.*;
 import com.example.EmployeeManagement.repository.PermissionRepository;
 import com.example.EmployeeManagement.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -54,5 +54,29 @@ public class UserMapperHelper {
         return perms.stream()
                 .map(Permission::getAccess)
                 .collect(Collectors.toSet());
+    }
+
+    public Employee mapEmployee(Long id) {
+        if (id == null) return null;
+
+        Employee employee = new Employee();
+        employee.setId(id);
+        return employee;
+    }
+
+    public Shift mapShift(Long id) {
+        if (id == null) return null;
+
+        Shift shift = new Shift();
+        shift.setId(id);
+        return shift;
+    }
+
+    public ShiftAssignment mapShiftAssignment(Long id) {
+        if (id == null) return null;
+
+        ShiftAssignment shiftAssignment = new ShiftAssignment();
+        shiftAssignment.setId(id);
+        return shiftAssignment;
     }
 }

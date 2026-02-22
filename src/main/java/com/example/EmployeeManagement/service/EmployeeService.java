@@ -8,4 +8,6 @@ import com.example.EmployeeManagement.entity.Employee;
 public interface EmployeeService
         extends GenericCrudService <Long, Employee, EmployeeResponseDTO, EmployeeCreateDTO, EmployeeUpdateDTO> {
 
+    Employee find(Long id);
+
 }

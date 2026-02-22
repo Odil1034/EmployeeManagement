@@ -3,6 +3,7 @@ package com.example.EmployeeManagement.mapper;
 import com.example.EmployeeManagement.dto.request.EmployeeCreateDTO;
 import com.example.EmployeeManagement.dto.request.EmployeeUpdateDTO;
 import com.example.EmployeeManagement.dto.response.EmployeeResponseDTO;
+import com.example.EmployeeManagement.dto.response.SimpleEmployeeDTO;
 import com.example.EmployeeManagement.entity.Department;
 import com.example.EmployeeManagement.entity.Employee;
 import org.mapstruct.*;
@@ -31,5 +32,9 @@ public interface EmployeeMapper {
     @InheritConfiguration
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Employee toEntity(EmployeeResponseDTO dto);
+
+    @Mapping(target = "fullName",
+            expression = "java(employee.getFirstName() + \" \" + employee.getLastName())")
+    SimpleEmployeeDTO toSimpleDTO(Employee employee);
 
 }

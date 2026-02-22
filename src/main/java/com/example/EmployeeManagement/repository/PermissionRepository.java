@@ -20,10 +20,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     @Query("SELECT p FROM Permission p WHERE p.deleted = FALSE")
     List<Permission> findAllActive();
 
-    @Modifying
-    @Query("UPDATE Permission p SET p.deleted = true WHERE p.id = :id")
-    int softDelete(@Param("id") Long id);
-
     boolean existsByAccess(String access);
 
     boolean existsByAccessAndIdNot(String access, Long id);
