@@ -47,5 +47,17 @@ public class Shift extends Auditable {
     @Builder.Default
     @OneToMany(mappedBy = "shift", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ShiftAssignment> shiftAssignments = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Shift{" +
+                "name=" + name +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", gracePeriodMinutes=" + gracePeriodMinutes +
+                ", active=" + active +
+                ", shiftAssignments=" + shiftAssignments +
+                '}';
+    }
 }
 

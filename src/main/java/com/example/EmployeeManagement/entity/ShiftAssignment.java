@@ -1,10 +1,7 @@
 package com.example.EmployeeManagement.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -18,9 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@SQLDelete(sql = "UPDATE shifts_assignments SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE shift_assignments SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
-@Table(name = "shifts_assignments",
+@Table(name = "shift_assignments",
         uniqueConstraints = {
                 @UniqueConstraint(
                         columnNames = {"employee_id", "work_date"}
@@ -29,17 +26,18 @@ import java.util.List;
 )
 public class ShiftAssignment extends Auditable {
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @ManyToOne
-    @JoinColumn(name = "shift_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "shift_id", nullable = false)
     private Shift shift;
 
-    @Column(name = "work_date")
+    @Column(name = "work_date", nullable = false)
     private LocalDate workDate;
 
-    @OneToMany(mappedBy = "shiftAssignment", cascade = CascadeType.ALL)
-    private List<Attendance> attendances;
+    @Builder.Default
+    @Column(name = "active")
+    private boolean active = true;
 }
