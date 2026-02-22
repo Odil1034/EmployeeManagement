@@ -26,10 +26,6 @@ public class Attendance extends Auditable {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shift_assignment_id", nullable = false)
-    private ShiftAssignment shiftAssignment;
-
     @Column(name = "check_in")
     private LocalTime checkIn;
 
@@ -51,5 +47,9 @@ public class Attendance extends Auditable {
     @Builder.Default
     @Column(name = "is_approved")
     private boolean isApproved = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shift_assignment_id", nullable = false)
+    private ShiftAssignment shiftAssignment;
 
 }

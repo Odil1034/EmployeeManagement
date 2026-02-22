@@ -2,17 +2,15 @@ package com.example.EmployeeManagement.dto.request;
 
 import com.example.EmployeeManagement.dto.marker.Request;
 import com.example.EmployeeManagement.enums.AttendanceStatus;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
 
-public record AttendanceCreateDTO(
-        @NotNull(message = "Employee ID is required")
+/**
+ * DTO for updating Attendance
+ */
+public record AttendanceUpdateDTO(
         Long employeeId,
-
-        @NotNull(message = "Shift Assignment ID is required")
         Long shiftAssignmentId,
-
         AttendanceStatus status,
         LocalTime checkIn,
         LocalTime checkOut
