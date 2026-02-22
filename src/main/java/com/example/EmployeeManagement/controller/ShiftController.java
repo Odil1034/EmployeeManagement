@@ -6,18 +6,18 @@ import com.example.EmployeeManagement.dto.request.ShiftCreateDTO;
 import com.example.EmployeeManagement.dto.request.ShiftUpdateDTO;
 import com.example.EmployeeManagement.dto.response.ShiftHistoryDTO;
 import com.example.EmployeeManagement.dto.response.ShiftResponseDTO;
+import com.example.EmployeeManagement.enums.ShiftType;
 import com.example.EmployeeManagement.service.ShiftService;
 import com.example.EmployeeManagement.utils.Constants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -105,13 +105,16 @@ public class ShiftController {
     // GET /api/v1/shifts/check-duplicate?name=MORNING&startTime=09:00&endTime=18:00
     @GetMapping("/check-duplicate")
     public ResponseEntity<Response<ShiftResponseDTO>> duplicateCheck(
-            @RequestParam("name") String name,
+            @RequestParam("name") ShiftType name,
             @RequestParam
-            @Schema(type = "string", example = "09:00:00", pattern = "HH:mm:ss")
-            LocalTime startTime,
+            @Schema(type = "string", example = "09:00:00")
+            String startTimeStr,
             @RequestParam
-            @Schema(type = "string", example = "18:00:00", pattern = "HH:mm:ss")
-            LocalTime endTime) {
+            @Schema(type = "string", example = "18:00:00")
+            String endTimeStr) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime startTime = LocalTime.parse(startTimeStr, dateTimeFormatter);
+        LocalTime endTime = LocalTime.parse(endTimeStr, dateTimeFormatter);
 
         return ResponseEntity.ok(shiftService.duplicateCheck(name, startTime, endTime));
     }

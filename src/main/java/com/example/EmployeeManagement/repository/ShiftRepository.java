@@ -33,5 +33,5 @@ public interface ShiftRepository extends JpaRepository<Shift, Long>, JpaSpecific
     List<Shift> findByActiveTrue();
 
     // Duplicate check for DTO usage
-    Optional<Shift> findByNameAndStartTimeAndEndTime(String name, LocalTime startTime, LocalTime endTime);
+    Optional<Shift> findByNameAndStartTimeAndEndTime(ShiftType name, LocalTime startTime, LocalTime endTime);
 }

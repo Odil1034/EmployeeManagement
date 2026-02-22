@@ -7,6 +7,7 @@ import com.example.EmployeeManagement.dto.request.ShiftUpdateDTO;
 import com.example.EmployeeManagement.dto.response.ShiftHistoryDTO;
 import com.example.EmployeeManagement.dto.response.ShiftResponseDTO;
 import com.example.EmployeeManagement.entity.Shift;
+import com.example.EmployeeManagement.enums.ShiftType;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 
@@ -29,5 +30,7 @@ public interface ShiftService
     Response<List<ShiftResponseDTO>> bulkCreate(@Valid List<ShiftCreateDTO> bulkShifts);
 
 
-    Response<ShiftResponseDTO> duplicateCheck(String name, LocalTime startTime, LocalTime endTime);
+    Response<ShiftResponseDTO> duplicateCheck(ShiftType name, LocalTime startTime, LocalTime endTime);
+
+    Shift find(Long id);
 }

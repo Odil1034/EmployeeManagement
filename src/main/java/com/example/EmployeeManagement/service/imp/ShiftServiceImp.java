@@ -7,6 +7,7 @@ import com.example.EmployeeManagement.dto.request.ShiftUpdateDTO;
 import com.example.EmployeeManagement.dto.response.ShiftHistoryDTO;
 import com.example.EmployeeManagement.dto.response.ShiftResponseDTO;
 import com.example.EmployeeManagement.entity.Shift;
+import com.example.EmployeeManagement.enums.ShiftType;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.mapper.ShiftMapper;
 import com.example.EmployeeManagement.repository.ShiftRepository;
@@ -72,6 +73,7 @@ public class ShiftServiceImp implements ShiftService {
         return Response.ok(mapper.toDTO(save));
     }
 
+    @Override
     public Shift find(Long id) {
         return repository.findByIdCustom(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shift not found with id: {0}", id));
@@ -162,10 +164,12 @@ public class ShiftServiceImp implements ShiftService {
     }
 
     @Override
-    public Response<ShiftResponseDTO> duplicateCheck(String name, LocalTime startTime, LocalTime endTime) {
+    public Response<ShiftResponseDTO> duplicateCheck(ShiftType name, LocalTime startTime, LocalTime endTime) {
         Optional<Shift> duplicate = repository.findByNameAndStartTimeAndEndTime(name, startTime, endTime);
         if (duplicate.isPresent()) {
-            Response.ok(200, mapper.toDTO(duplicate.get()), "Duplicate shift exists");
+            Shift entity = duplicate.get();
+            System.out.println(entity);
+            return Response.ok(200, mapper.toDTO(entity), "Duplicate shift exists");
         }
         return Response.ok(200, mapper.toDTO(null), "No duplicate found");
     }
