@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
@@ -20,6 +21,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     int softDelete(Long id);
 
     Optional<Employee> findByIdAndDeletedFalse(@NotNull Long id);
+
+    Optional<Employee> findByUserId(Long userId);
+
+    @Query("SELECT e FROM Employee e WHERE e.deleted = false")
+    List<Employee> findAllCustom();
+
 
     /*@Query("SELECT p FROM Employee p WHERE p.access = ?1 AND p.deleted = FALSE")
     Optional<Employee> findByFirstName(String firstName);

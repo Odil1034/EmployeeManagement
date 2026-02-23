@@ -19,6 +19,8 @@ public record EmployeeResponseDTO(
         String address,
         EmployeeStatus status,
         EmployeeRole employeeRole,
+        Long departmentId,
+        String departmentName,
         List<String> positionNames
         ) implements Response {
 }

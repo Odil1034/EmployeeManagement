@@ -9,6 +9,7 @@ import com.example.EmployeeManagement.dto.response.UserResponseDTO;
 import com.example.EmployeeManagement.dto.Response;
 import com.example.EmployeeManagement.entity.Employee;
 import com.example.EmployeeManagement.entity.User;
+import com.example.EmployeeManagement.enums.EmployeeRole;
 import com.example.EmployeeManagement.exception.ResourceNotFoundException;
 import com.example.EmployeeManagement.exception.UserNotFoundException;
 import com.example.EmployeeManagement.mapper.UserMapper;
@@ -49,6 +50,7 @@ public class UserServiceImp implements UserService {
     public Response<UserResponseDTO> create(UserCreateDTO dto) {
         final var user = mapper.fromCreate(dto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         final var newUser = repository.save(user);
         return Response.ok(mapper.toDTO(newUser));
     }

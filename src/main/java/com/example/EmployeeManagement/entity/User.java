@@ -54,6 +54,7 @@ public class User extends Auditable {
     @Column(name = "is_account_non_locked", nullable = false)
     private boolean isAccountNonLocked = true;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

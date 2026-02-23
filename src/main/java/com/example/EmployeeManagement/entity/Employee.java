@@ -72,8 +72,7 @@ public class Employee extends Auditable {
     @Column(name = "employee_role", nullable = false)
     private EmployeeRole employeeRole = EmployeeRole.EMPLOYEE;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
 
     @ManyToOne

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Component
 public class SessionUser {
+
     private RoleService roleService;
 
     public Optional<CustomUserDetails> getUser() {

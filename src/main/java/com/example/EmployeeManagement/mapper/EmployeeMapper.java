@@ -27,6 +27,8 @@ public interface EmployeeMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void fromUpdate(EmployeeUpdateDTO dto, @MappingTarget Employee entity);
 
+    @Mapping(target = "departmentId", expression = "java(employee.getDepartment().getId())")
+    @Mapping(target = "departmentName", expression = "java(employee.getDepartment().getName())")
     EmployeeResponseDTO toDTO(Employee employee);
 
     @InheritConfiguration
