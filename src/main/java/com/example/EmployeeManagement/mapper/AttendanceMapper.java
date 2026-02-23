@@ -12,7 +12,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {UserMapperHelper.class})
 public interface AttendanceMapper {
 
-    @Mapping(source = "employeeId", target = "employee")
     @Mapping(source = "shiftAssignmentId", target = "shiftAssignment")
     Attendance fromCreate(AttendanceCreateDTO dto);
 
@@ -26,6 +25,8 @@ public interface AttendanceMapper {
     @Mapping(target = "shiftName", expression = "java(attendance.getShiftAssignment().getShift().getName().name())")
     @Mapping(source = "shiftAssignment", target = "shiftAssignmentId", qualifiedByName = "mapShiftAssignment")
     @Mapping(source = "employee", target = "employeeId", qualifiedByName = "mapEmployee")
+    @Mapping(target = "checkInStatus", source = "checkInStatus")
+    @Mapping(target = "checkOutStatus", source = "checkOutStatus")
     AttendanceResponseDTO toDTO(Attendance attendance);
 
     @Named("mapShiftAssignment")

@@ -9,11 +9,8 @@ import java.time.LocalTime;
  * DTO for updating Attendance
  */
 public record AttendanceUpdateDTO(
-        Long employeeId,
-        Long shiftAssignmentId,
         AttendanceStatus status,
         LocalTime checkIn,
         LocalTime checkOut
 ) implements Request {
-
 }
