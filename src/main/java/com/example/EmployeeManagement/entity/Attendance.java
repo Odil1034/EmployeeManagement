@@ -1,5 +1,7 @@
 package com.example.EmployeeManagement.entity;
 
+import com.example.EmployeeManagement.enums.CheckInStatus;
+import com.example.EmployeeManagement.enums.CheckOutStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -18,8 +20,18 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "attendances")
 @SuperBuilder(toBuilder = true)
+@Table(
+        name = "attendances",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"employee_id", "shift_assignment_id", "date"})
+        },
+        indexes = {
+                @Index(name = "idx_attendance_employee_date", columnList = "employee_id, date"),
+                @Index(name = "idx_attendance_date_status", columnList = "date, status"),
+                @Index(name = "idx_attendance_shiftassignment_date", columnList = "shift_assignment_id, date")
+        }
+)
 public class Attendance extends Auditable {
 
     @ManyToOne
@@ -35,6 +47,16 @@ public class Attendance extends Auditable {
     @Enumerated(EnumType.STRING)
     private AttendanceStatus status;
 
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "check_in_status")
+    private CheckInStatus checkInStatus = CheckInStatus.ABSENT;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "check_out_status")
+    private CheckOutStatus checkOutStatus = CheckOutStatus.NO_CHECKOUT;
+
     @Column(name = "approved_by")
     private Long approvedBy;
 
@@ -46,10 +68,9 @@ public class Attendance extends Auditable {
 
     @Builder.Default
     @Column(name = "is_approved")
-    private boolean isApproved = false;
+    private Boolean isApproved = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shift_assignment_id", nullable = false)
     private ShiftAssignment shiftAssignment;
-
 }
