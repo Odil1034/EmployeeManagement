@@ -52,11 +52,24 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Mailing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- Spring Starter Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
+        <!--&lt;!&ndash; Twilio for phone sms sender &ndash;&gt;
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.31.1</version> &lt;!&ndash; 8.33.1 Central’da yo‘q, 8.31.1 ishlaydi &ndash;&gt;
+        </dependency>-->
 
          <!-- Spring Boot DevTools -->
 		<dependency>
