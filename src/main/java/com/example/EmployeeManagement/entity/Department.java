@@ -26,6 +26,9 @@ public class Department extends Auditable {
     @Column(nullable = false)
     private String address;
 
+    @Column(length = 1000)
+    private String description;
+
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private DepartmentStatus status = DepartmentStatus.ACTIVE;

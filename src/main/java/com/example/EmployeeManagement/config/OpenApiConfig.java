@@ -135,4 +135,36 @@ public class OpenApiConfig {
                 .pathsToMatch("/api/v1/shift-assignments/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi positionOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("position")
+                .pathsToMatch("/api/v1/position/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi workOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("work")
+                .pathsToMatch("/api/v1/work/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi workTypeOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("work-type")
+                .pathsToMatch("/api/v1/work-type/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi workCategoryOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("work-category")
+                .pathsToMatch("/api/v1/work-category/**")
+                .build();
+    }
 }

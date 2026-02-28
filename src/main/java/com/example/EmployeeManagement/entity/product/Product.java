@@ -2,6 +2,7 @@ package com.example.EmployeeManagement.entity.product;
 
 import com.example.EmployeeManagement.entity.Auditable;
 import com.example.EmployeeManagement.entity.Document;
+import com.example.EmployeeManagement.entity.work.Work;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

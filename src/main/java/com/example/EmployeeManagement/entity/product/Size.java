@@ -25,7 +25,8 @@ public class Size {
     @Column(precision = 8, scale = 2)
     private BigDecimal length;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SizeUnit unit;
+    private SizeUnit unit = SizeUnit.MM;
 }

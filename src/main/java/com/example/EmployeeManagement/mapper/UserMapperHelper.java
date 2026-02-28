@@ -1,12 +1,15 @@
 package com.example.EmployeeManagement.mapper;
 
 import com.example.EmployeeManagement.entity.*;
+import com.example.EmployeeManagement.entity.work.Work;
 import com.example.EmployeeManagement.repository.PermissionRepository;
 import com.example.EmployeeManagement.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -78,5 +81,13 @@ public class UserMapperHelper {
         ShiftAssignment shiftAssignment = new ShiftAssignment();
         shiftAssignment.setId(id);
         return shiftAssignment;
+    }
+
+    @Named("calculateTotal")
+    public BigDecimal calculateTotal(Work entity) {
+        if (entity.getPrice() == null || entity.getQuantity() == null) {
+            return BigDecimal.ZERO;
+        }
+        return entity.getPrice().multiply(BigDecimal.valueOf(entity.getQuantity()));
     }
 }

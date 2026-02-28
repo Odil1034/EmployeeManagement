@@ -50,9 +50,9 @@ public class Employee extends Auditable {
 
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position; // bitta employee → bitta position
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id", nullable = false)
+    private Position position;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -85,4 +85,8 @@ public class Employee extends Auditable {
     @Builder.Default
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private Set<ShiftAssignment> assignments = new HashSet<>();
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

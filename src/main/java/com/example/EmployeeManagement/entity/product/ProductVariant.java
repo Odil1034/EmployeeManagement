@@ -2,6 +2,7 @@ package com.example.EmployeeManagement.entity.product;
 
 import com.example.EmployeeManagement.entity.Auditable;
 import com.example.EmployeeManagement.entity.Document;
+import com.example.EmployeeManagement.entity.work.Work;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -21,6 +22,7 @@ import java.util.List;
 @SQLDelete(sql = "UPDATE product_variants SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
 public class ProductVariant extends Auditable {
+
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
@@ -29,22 +31,23 @@ public class ProductVariant extends Auditable {
     private Size size;
 
     private double weight;// kg
-    @Column(nullable = false, precision = 10, scale = 2)
+
+    @Column(name = "selling_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal sellingPrice;
 
-    @Column(precision = 10, scale = 2)
+    @Column(name = "cost_price", precision = 10, scale = 2)
     private BigDecimal costPrice; // optional, ishchi / material xarajatlari uchun
 
-    @Column(nullable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
     private String color; // rangi
 
     @OneToMany(mappedBy = "productVariant", fetch = FetchType.EAGER)
-    private List<Document> images; // optional: variant rasmi
+    private List<Document> images; // optional
 
     @Column(length = 1000)
-    private String description; // optional: qo‘shimcha info, material, color
+    private String description; // optional
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal price; // standart narx
@@ -53,6 +56,9 @@ public class ProductVariant extends Auditable {
     private String material; // yog‘och, MDF, metal, plastic
 
     @Builder.Default
-    @Column(nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean isActive = true; // Product mavjudmi yoki arxivlangan
+
+    @ManyToMany(mappedBy = "productVariants")
+    private List<Work> works; // tayyorlash bosqichlari
 }

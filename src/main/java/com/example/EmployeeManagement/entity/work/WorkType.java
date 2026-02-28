@@ -16,7 +16,8 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @Table(name = "work_types")
 public class WorkType extends Auditable {
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String name; // Размерга кесиш, Тешиш, Овал, Сайкаллаш
 
     @ManyToOne

@@ -27,7 +27,7 @@ public class WorkCategory extends Auditable {
     @Column(length = 2000)
     private String description; // texnika xavfsizlik yoki guideline(ishni bajarish tartibi)
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Position allowedPosition; // WELDER, PAINTER, etc
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

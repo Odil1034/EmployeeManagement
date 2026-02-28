@@ -1,5 +1,8 @@
 package com.example.EmployeeManagement.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum WorkStatus {
     PENDING("employee qo‘shgan, sex boshlig'i tasdiqlamagan"),
     APPROVED("Ish bajarilgan va sex boshlig'i tasdiqlagan"),   // ish bajarilgan va tasdiqlangan
@@ -11,7 +14,4 @@ public enum WorkStatus {
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }
