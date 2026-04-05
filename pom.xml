@@ -64,12 +64,21 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-        <!--&lt;!&ndash; Twilio for phone sms sender &ndash;&gt;
-        <dependency>
-            <groupId>com.twilio.sdk</groupId>
-            <artifactId>twilio</artifactId>
-            <version>8.31.1</version> &lt;!&ndash; 8.33.1 Central’da yo‘q, 8.31.1 ishlaydi &ndash;&gt;
-        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>s3</artifactId>-->
+<!--            <version>2.25.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>sqs</artifactId>-->
+<!--            <version>2.25.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>software.amazon.awssdk</groupId>-->
+<!--            <artifactId>sns</artifactId>-->
+<!--            <version>2.25.0</version>-->
+<!--        </dependency>-->
 
          <!-- Spring Boot DevTools -->
 		<dependency>

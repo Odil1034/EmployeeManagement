@@ -9,7 +9,6 @@ import com.example.EmployeeManagement.repository.AttendanceRepository;
 import com.example.EmployeeManagement.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
